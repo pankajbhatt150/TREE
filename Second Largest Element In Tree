@@ -1,0 +1,31 @@
+TreeNode<int>* getSecondLargestNode(TreeNode<int>* root) {
+   queue<TreeNode<int>*> q;
+    
+    TreeNode<int>* large = new TreeNode<int>(0);
+    TreeNode<int>* getSecondLargestNode;
+    
+    if(root->children.size() < 1)
+        return 0;
+    
+    q.push(root);
+    
+    while(!q.empty()){
+        if(q.front() -> data > large->data){
+            getSecondLargestNode = large;
+            large = q.front();
+        }
+        else if(q.front()->data > getSecondLargestNode -> data){
+            if(q.front() -> data != large->data)
+                getSecondLargestNode = q.front();
+            else
+                return NULL;
+        }
+        
+        for(int i=0;i<root->children.size();i++)
+            q.push(root->children[i]);
+        
+        q.pop();
+        root=q.front();
+    }
+    return getSecondLargestNode; // Write your code here
+}
